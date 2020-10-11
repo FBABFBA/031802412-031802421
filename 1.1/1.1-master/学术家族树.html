@@ -11,54 +11,66 @@
     <script src="js/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <link type="text/css" rel="stylesheet" href="type.css">
-    
 </head>
 
 <body>
     <script src="js/d3.v3.min.js"></script>
     <div class="flex-container">
-        <p id="title">学术家族树</p>
-        <textarea type="textarea" id="text" cols="60" rows="10" class="center" placeholder="请输入内容："></textarea>
-        <button href="javascript:;" onclick="getdata()" class="button_left">生成家族树</button>
-        <input type=button value=重置 onclick="location.reload()" class="button_right">
+        <p id="title">家族树</p>
+        <textarea type="textarea" id="text" cols="80" rows="10" class="center" placeholder="请输入内容"></textarea>
+        <button href="javascript:;" onclick="getdata()" class="button_right">生成家族树</button>
+        <input type=button value=重置 onclick="location.reload()" class="button_left">
     </div>
     <!--使用onclick触发下面的方法-->
     <script>
-        var treeData = [{
+        var treeData = [
+		{
             "name": "",
             "parent": "",
-            "children": [{
+            "children": [
+			{
                 "name": "",
                 "parent": "",
-                "children": [{
-                    "name": "",
-                    "parent": ""
-                }, {
-                    "name": "",
-                    "parent": "",
-                    "children": [{
-                        "name": "",
-                        parent: ""
-                    }]
-                }, {
-                    "name": "",
-                    "parent": ""
-                }, {
-                    "name": "",
-                    "parent": ""
-                }]
-            }, {
+                "children": 
+				[
+					{
+						"name": "",
+						"parent": ""
+					}, 
+					{
+						"name": "",
+						"parent": "",
+						"children": 
+						[{
+							"name": "",
+							parent: ""
+						}]
+					}, 
+					{
+						"name": "",
+						"parent": ""
+					}, 
+					{
+						"name": "",
+						"parent": ""
+					},
+				]
+            }, 
+			{
                 "name": "",
                 "parent": "",
-                "children": [{
+                "children": [
+				{
                     "name": "",
                     "parent": ""
-                }, {
+                }, 
+				{
                     "name": "",
                     "parent": ""
                 }, ]
 
-            }, {
+            }, 
+			{
                 "name": "",
                 "parent": ""
             }, ]
@@ -113,7 +125,7 @@
                     top: 20,
                     right: 120,
                     bottom: 20,
-                    left: 120
+                    left: 50
                 },
                 width = 960 - margin.right - margin.left,
                 height = 500 - margin.top - margin.bottom;
@@ -140,7 +152,7 @@
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
             root = treeData[k]; //treeData为上边定义的节点属性
-            root.x0 = height / 2;
+            root.x0 = height / 1.2;
             root.y0 = 0;
 
 
@@ -152,9 +164,9 @@
                 var nodes = tree.nodes(root).reverse(),
                     links = tree.links(nodes);
 
-                // Normalize for fixed-depth.设置y坐标点，每层占180px
+                // Normalize for fixed-depth.设置y坐标点，每层占300px
                 nodes.forEach(function(d) {
-                    d.y = d.depth * 180;
+                    d.y = d.depth * 380;
                 });
 
                 // Update the nodes…每个node对应一个group
@@ -176,12 +188,12 @@
                 //   .attr("r", 1e-6)
                 //   .style("fill", function(d) { return d._children ? "lightsteelblue" : "#357CAE"; });//d 代表数据，也就是与某元素绑定的数据。
                 nodeEnter.append("rect")
-                    .attr("x", -40)
-                    .attr("y", -20)
-                    .attr("width", 90)
-                    .attr("height", 40)
-                    .attr("rx", 40)
-                    .style("fill", "#800000"); //d 代表数据，也就是与某元素绑定的数据。
+                    .attr("x", -23)
+                    .attr("y", -10)
+                    .attr("width", 70)
+                    .attr("height", 20)
+                    .attr("rx", 10)
+                    .style("fill", "#97bc5d"); //d 代表数据，也就是与某元素绑定的数据。
 
 
                 nodeEnter.append("text")
@@ -209,7 +221,7 @@
                     .attr("width", 70)
                     .attr("height", 20)
                     .attr("rx", 10)
-                    .style("fill", "#800000");
+                    .style("fill", "#97bc5d");
 
                 nodeUpdate.select("text")
                     .attr("text-anchor", "middle")
@@ -229,7 +241,7 @@
 
 
                 nodeExit.select("text")
-                    .attr("text-anchor", "left")
+                    .attr("text-anchor", "middle")
                     .style("fill-opacity", 1e-6);
 
                 // Update the links…线操作相关
@@ -300,7 +312,7 @@
         }
         //d3.select(self.frameElement).style("height", "500px");
         // 定义菜单选项
-    var userMenuData = [
+        var userMenuData = [
             [{
                 text: "添加",
                 func: function() {
